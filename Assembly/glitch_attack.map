@@ -1,0 +1,22 @@
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+
+.memory         0x0000000000000000       0x6c
+                0x0000000000000000                . = 0x0
+ start*(.text)
+ *(.text)
+ .text          0x0000000000000000       0x6c glitch_attack.o
+                0x0000000000000000                _start
+ *(*)
+ .data          0x000000000000006c        0x0 glitch_attack.o
+ .bss           0x000000000000006c        0x0 glitch_attack.o
+                0x000000000000006c                end = .
+LOAD glitch_attack.o
+LOAD /usr/local/riscv32i/lib/gcc/riscv32-unknown-elf/7.1.0/libgcc.a
+OUTPUT(glitch_attack.elf elf32-littleriscv)
